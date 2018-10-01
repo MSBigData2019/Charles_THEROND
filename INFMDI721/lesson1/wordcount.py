@@ -60,7 +60,7 @@ def print_words(filename):
     result=counter(mytxt)
     final=sorted(result,key= lambda x: x[0])
     for i in range(len(final)):
-        print final[i]
+        print (final[i])
     return
 
 def print_top(filename):
@@ -71,7 +71,7 @@ def print_top(filename):
     for i in range(len(final)):
         if i >19:
             break
-        print final[i]
+        print (final[i])
     return
 
 # +++your code here+++
@@ -86,7 +86,7 @@ def print_top(filename):
 # calls the print_words() and print_top() functions which you must define.
 def main():
     if len(sys.argv) != 3:
-        print 'usage: ./wordcount.py {--count | --topcount} file'
+        print ('usage: ./wordcount.py {--count | --topcount} file')
         sys.exit(1)
     option = sys.argv[1]
     filename = sys.argv[2]
@@ -95,7 +95,7 @@ def main():
     elif option == '--topcount':
         print_top(filename)
     else:
-        print 'unknown option: ' + option
+        print ('unknown option: ' + option)
     sys.exit(1)
 
 if __name__ == '__main__':
