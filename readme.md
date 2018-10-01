@@ -6,8 +6,7 @@ Pour chaque UE, il existe une branche avec un ou plusieurs projet. Des lors, il 
 
 :arrow_right: branche INFMDI721 kit data science
  
-:arrow_lower_right: lesson1
- 
-:arrow_lower_right: test1
+  * Lesson1
+  * Test1
 
 :arrow_right: banche INF727 Hadoop from scratch
