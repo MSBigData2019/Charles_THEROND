@@ -4,10 +4,10 @@ Pour chaque UE, il existe une branche avec un ou plusieurs projet. Des lors, il 
 
 # Architecture du repo
 
---> branche INFMDI721 kit data science
+:arrow_right: branche INFMDI721 kit data science
  
-    ==> lesson1
+:arrow_lower_right: lesson1
  
-    ==> test1
+:arrow_lower_right: test1
 
---> banche INF727 Hadoop from scratch
+:arrow_right: banche INF727 Hadoop from scratch
