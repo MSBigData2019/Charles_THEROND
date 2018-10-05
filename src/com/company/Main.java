@@ -1,11 +1,9 @@
 package com.company;
 
-import java.util.HashMap;
-
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+        // write your code here
         Mapper wordcount= new Mapper("");
         // Question 1 à 3
         System.out.println("input.txt");
