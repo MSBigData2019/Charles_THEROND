@@ -111,7 +111,8 @@ nano ftemp.txt<br/>
 Vérifiez le contenu du fichier avec cette commande exactement:<br/>
 cat /tmp/ctherond/ftemp.txt<br/>
 **Ce dossier et ce fichier sont-ils sur le disque dur de l’ordinateur ou autre part ? Comment savoir où sont stockés physiquement ces éléments, à l’aide de quelle commande ?**
-<br/>/cal/homes/ctherond/ftemp.txt
+<br/>/tmp/ctherond/ftemp.txt<br/>
+Le fichier est stoqué sur la machine localement
 
 
 ​**Question 25:​
@@ -133,18 +134,21 @@ De même, connectez-vous à C et vérifiez que text.txt est aussi présent.
 Remarquez que vous n’avez pas copié le fichier mais qu’il est présent sur A, B et C grâce au serveur NFS.**<br/>
 <img style="text-align: center;" src="checkcopiesnfs.png" height="250" >
 
-​27​ Trois ordinateurs A B C. On commence avec A. Utilisation des disques locaux.
+​**Question 27 et 28:​<br/>
 Déconnectez vous de B et de C et revenez sur l’ordinateur A.
 Sur A, créez un dossier /tmp/<votre nom d’utilisateur> et un fichier local.txt contenant le texte “mon texte sur disque local” dans ce dossier /tmp/<votre nom d’utilisateur>.
 Vérifiez que le fichier existe et vérifiez son contenu. Pour cela, sur A, utilisez la commande :
-cat /tmp/<votre nom d’utilisateur>/local.txt
-
-​28​ Trois ordinateurs A B C. On continue sur B et sur C. Utilisation des disques locaux.
+cat /tmp/<votre nom d’utilisateur>/local.<br/>
 Connectez-vous à B et C (physiquement ou à distance) et vérifiez que le dossier <votre nom d’utilisateur> ainsi que le fichier local.txt ne sont pas présent dans /tmp . Pour cela vérifiez avec la commande:
-ls /tmp
+ls /tmp**
+<img style="text-align: center;" src="checklocal.png" height="250" >
 
-​29​ Depuis A, copier de A vers B avec les disques locaux.
-Comment, à partir de A, transférer le fichier /tmp/local.txt sur B (dans /tmp/<votre nom d’utilisateur>/local.txt) en utilisant scp ? Vérifiez que le fichier est bien présent sur B. Attention: si vous avez une erreur “no such file or directory” (ou l’équivalent français), vous devez d’abord créer le répertoire /tmp/<votre nom d’utilisateur>/ avec la commande mkdir -p associée à un ssh pour l’ordinateur distant.
+​**Question 29:
+Comment, à partir de A, transférer le fichier /tmp/local.txt sur B (dans /tmp/<votre nom d’utilisateur>/local.txt) en utilisant scp ? Vérifiez que le fichier est bien présent sur B. Attention: si vous avez une erreur “no such file or directory” (ou l’équivalent français), vous devez d’abord créer le répertoire /tmp/<votre nom d’utilisateur>/ avec la commande mkdir -p associée à un ssh pour l’ordinateur distant.**<br/>
+scp /tmp/ctherond/local.txt ctherond@c133-06.enst.fr:/tmp/ctherond
 
-​30​ Depuis A, copier de B vers C avec les disques locaux.
-Comment, à partir de A, transférer le fichier de B (depuis /tmp/<votre nom d’utilisateur>/local.txt) vers C (dans /tmp/<votre nom d’utilisateur>/local.txt) ? Vérifiez que le fichier est bien présent sur C. De même que la question précédentes, vous devez créer les répertoires /tmp/<votre nom d’utilisateur>/ correspondants.
+​**Question 30:
+Comment, à partir de A, transférer le fichier de B (depuis /tmp/<votre nom d’utilisateur>/local.txt) vers C (dans /tmp/<votre nom d’utilisateur>/local.txt) ? Vérifiez que le fichier est bien présent sur C. De même que la question précédentes, vous devez créer les répertoires /tmp/<votre nom d’utilisateur>/ correspondants.**<br/>
+scp ctherond@c133-06.enst.fr:/tmp/ctherond/local.txt ctherond@c133-07.enst.fr:/tmp/ctherond
+
+## Partie 4
