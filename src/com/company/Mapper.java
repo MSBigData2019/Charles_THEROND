@@ -3,95 +3,129 @@ package com.company;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class Mapper {
     String content;
     HashMap<String, Integer> mapped = new HashMap<String, Integer>();
+    ArrayList<Integer> occurences = new ArrayList<Integer>();
+    HashMap<Integer, ArrayList<String>> occurenceMap = new HashMap<Integer, ArrayList<String>>();
 
-    public Mapper(String input){
-        System.out.println(input);
-        content = input;
-
+    public Mapper(){
     }
 
     // Question 1 comptage séquentiel pur
-    public void wordcount() {
-        String[] montexttab= content.split(" ");
+    public void wordcount(String text) {
         mapped = new HashMap<String, Integer>();
-        for (String word : montexttab){
-            Integer value = mapped.get(word);
-            if(value==null){
-                mapped.put(word,1);
-            }else{
-                mapped.put(word, value + 1);
+        List<String> lines = null;
+        try {
+            System.out.println("-----------------------------");
+            long startCharge = System.currentTimeMillis();
+            lines = Files.readAllLines(Paths.get(text), Charset.forName("UTF-8"));
+            long endCharge = System.currentTimeMillis();
+            long totalCharge = (endCharge - startCharge);
+            System.out.println("Le temps du chargement de fichier est de "+ String.valueOf(totalCharge));
+
+        } catch (IOException e) {
+            System.out.println("Erreur lors de la lecture de " + text);
+            System.exit(1);
+        }
+        System.out.println("-----------------------------");
+        long startWord = System.currentTimeMillis();
+        for (String line : lines) {
+            line.replaceAll("\\n"," " );
+            String[] montexttab= line.split(" ");
+            for (String word : montexttab){
+                Integer value = mapped.get(word);
+                if(value==null){
+                    mapped.put(word,1);
+                }else{
+                    mapped.put(word, value + 1);
+                }
             }
         }
+        long endWord= System.currentTimeMillis();
+        long totalWord = (endWord - startWord);
+        System.out.println("Le temps du wordcount est de "+ String.valueOf(totalWord));
+        System.out.println("-----------------------------");
+
     }
 
     // Question 2 sorting par valeur
-    public void sortingWordcount(){
-        HashMap<Integer, ArrayList<String>> transitionMap = new HashMap<Integer, ArrayList<String>>();
-        ArrayList<Integer> occurences = new ArrayList<Integer>();
+    public void occurencesSort( Integer sorting){
+        occurenceMap = new HashMap<Integer, ArrayList<String>>();
+        occurences = new ArrayList<Integer>();
         for (String name: mapped.keySet()){
             String word =name;
             Integer occurence = mapped.get(name);
-            if(transitionMap.containsKey(occurence)){
-                ArrayList<String> listWord= transitionMap.get(occurence);
+            if(occurenceMap.containsKey(occurence)){
+                ArrayList<String> listWord= occurenceMap.get(occurence);
                 listWord.add(word);
-                transitionMap.put(occurence,listWord);
+
+                occurenceMap.put(occurence,listWord);
             }else{
                 ArrayList<String> init=new ArrayList<String>();
                 init.add(word);
                 occurences.add(occurence);
-                transitionMap.put(occurence, init);
+                occurenceMap.put(occurence, init);
             }
         }
         Collections.sort(occurences,Collections.reverseOrder());
+        if( sorting == 0){
+            for(Integer i : occurences){
+                ArrayList<String> listWord= occurenceMap.get(i);
+                Collections.sort(listWord);
+                occurenceMap.put(i,listWord);
+            }
+
+        }
+
+
+    }
+
+
+
+
+    public void display(int N, Integer sorting){
+        long startSorting = System.currentTimeMillis();
+        this.occurencesSort(sorting);
+        long endSorting   = System.currentTimeMillis();
+        long totalSorting = (endSorting - startSorting);
+        System.out.println("Le temps du sorting est de "+ String.valueOf(totalSorting));
         System.out.println("-----------------------------");
-        Integer n=0;
-        for (Integer i: occurences){
-            ArrayList<String> listWord = transitionMap.get(i);
-            // Question 3 sorting par valeur et texte
-            Collections.sort(listWord); // commenter cette ligne pour switcher entre question 2 et 3
-            for (String txt:listWord){
-                if (n<50){ // Question 10 commenter cette ligne pour obtenir uniquement les temps de calcul
-                    System.out.println(txt+"  "+i.toString());
+
+        System.out.println("Les "+ String.valueOf(N)+" premiers mot sont:");
+        long startDisplay = System.currentTimeMillis();
+
+            int n=0;
+            for( Integer i: occurences){
+                ArrayList<String> listWord = occurenceMap.get(i);
+
+                for(String word : listWord){
+                    System.out.println(word+" "+String.valueOf(i));
+                    n++;
                 }
-                n++;
-            }
+                if(n>=N){
+                    break;
+                }
 
-        }
+            }
+        long endDisplay   = System.currentTimeMillis();
+        long totalDisplay = (endDisplay - startDisplay);
+        System.out.println("-----------------------------");
+        System.out.println("Le temps du display est de "+ String.valueOf(totalDisplay));
         System.out.println("-----------------------------");
 
 
-    }
-
-    // reading file and transforming into string.
-    public void setContent(String text) {
-
-        FileInputStream fis = null;
-        content="";
-        try {
-            fis = new FileInputStream(text);
-            byte[] buffer = new byte[1];
-            StringBuilder sb = new StringBuilder();
-            while (fis.read(buffer) != -1) {
-                sb.append(new String(buffer));
-                buffer = new byte[1];
-            }
-            fis.close();
-            content = sb.toString().replaceAll("\\n"," " );
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
 
 
 
     }
+
+
 
     public HashMap<String, Integer> getMapped() {
         return mapped;
