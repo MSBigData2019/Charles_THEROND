@@ -63,18 +63,31 @@ Quels sont les 5 premiers mots (qui ressemblent à des mots) parmis les 50 premi
 **Question 12:
 Quel est le nom COURT de votre ordinateur (le nom simple sans le domaine) ?   quel est le nom LONG de votre ordinateur (le nom avec le domaine) ? Comment les connaître en ligne de commande ? Sur les ordinateurs de l’école, est-il possible d’obtenir ces noms autrement qu’en ligne de commande ?**
 
+Nom court -> hostname -> c133-07
+
+Nom long  -> hostname -d -> enst.fr
+
+Oui il est possible d'acceder à ces informations via dans les parametres réseaux de notre session. Il faut néanmoins posseder les droit pour y acceder
 
 **Question ​13​:
 Comment connaître les adresses (plusieurs) IP de votre ordinateur en ligne de commande ? Autrement (en passant par un site internet par exemple) ?**
 
+ifconfig ou ip addr show
+
 ​**Question 14:
 Comment à partir du nom d’un ordinateur, obtenir les adresses IP en ligne de commande ?**
+
+nslookup 'monhostname'
 
 ​**Question 15​:
 Comment, à partir d’une adresse IP, obtenir les noms associés en ligne de commande ?**
 
+nslookup 'monip'
+
 ​**Question 16:
 Testez la communication avec d’autres ordinateurs (pas le vôtre) depuis le réseau de l’école en utilisant la commande ping (pour arrêter le ping faire CTRL + C). suivi du nom court, du nom long, de l’IP. Les trois méthodes fonctionnent-elles ?**
+
+![alt text](pingscreen.png "ping screen")
 
 ​**Question 17​:
 Si vous effectuez le ping depuis un réseau différent, il est possible que celui ne fonctionne pas (filtrage des accès vers le réseau de l’école depuis un réseau extérieur), contactez la DSI pour mettre en place une connection VPN / OpenVPN afin d’être sur le même réseau que les machines en salle de TP.**
