@@ -59,11 +59,13 @@ Comment, à partir d’une adresse IP, obtenir les noms associés en ligne de co
 
 ​**Question 16:
 Testez la communication avec d’autres ordinateurs (pas le vôtre) depuis le réseau de l’école en utilisant la commande ping (pour arrêter le ping faire CTRL + C). suivi du nom court, du nom long, de l’IP. Les trois méthodes fonctionnent-elles ?**
-<br/>![alt text](pingscreen.png "ping screen")
+<br/>
+<img style="text-align: center;" src="pingscreen.png" height="250" >
 
 ​**Question 17​:
 Si vous effectuez le ping depuis un réseau différent, il est possible que celui ne fonctionne pas (filtrage des accès vers le réseau de l’école depuis un réseau extérieur), contactez la DSI pour mettre en place une connection VPN / OpenVPN afin d’être sur le même réseau que les machines en salle de TP.**
-<br/>![alt text](pingexterne.png "ping screen")
+<br/>
+<img style="text-align: center;" src="pingexterne.png" height="250" >
 
 **Question ​18:
 Comment lancer un calcul en ligne de commande sur votre ordinateur (par exemple 2 + 3) ? Parmi les multiples réponses possibles, lesquelles permettent de lancer le calcul et d’obtenir le résultat en appuyant une seule fois sur la touche <Entrée> ?**<br/>
@@ -129,8 +131,7 @@ Connectez-vous à B (physiquement ou à distance) et vérifiez que le fichier te
 cat ~/text.txt
 De même, connectez-vous à C et vérifiez que text.txt est aussi présent.
 Remarquez que vous n’avez pas copié le fichier mais qu’il est présent sur A, B et C grâce au serveur NFS.**<br/>
-![alt text](checkcopiesnfs.png "check dossier" =250x250)
-<img src="checkcopiesnfs.png" height="300" >
+<img style="text-align: center;" src="checkcopiesnfs.png" height="250" >
 
 ​27​ Trois ordinateurs A B C. On commence avec A. Utilisation des disques locaux.
 Déconnectez vous de B et de C et revenez sur l’ordinateur A.
