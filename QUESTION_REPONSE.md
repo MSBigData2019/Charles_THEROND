@@ -110,15 +110,20 @@ nano ftemp.txt<br/>
 Vérifiez le contenu du fichier avec cette commande exactement:<br/>
 cat /tmp/ctherond/ftemp.txt<br/>
 **Ce dossier et ce fichier sont-ils sur le disque dur de l’ordinateur ou autre part ? Comment savoir où sont stockés physiquement ces éléments, à l’aide de quelle commande ?**
-/cal/homes/ctherond/ftemp.txt
+<br/>/cal/homes/ctherond/ftemp.txt
 
 
-​25​ Trois ordinateurs A B C. On commence avec A. Utilisation du serveur NFS.
+​**Question 25:​
 Pour les questions suivantes, utilisez trois ordinateurs: A, B C.
 Connectez vous physiquement (avec un clavier, une souris et un écran) sur l’ordinateur A.
 Sur A, créez un fichier text.txt contenant le texte “mon texte sur NFS” dans votre répertoire personnel.
-Vérifiez que le fichier existe et vérifiez son contenu. Pour cela, sur A, utilisez la commande :
-cat ~/text.txt
+Vérifiez que le fichier existe et vérifiez son contenu. Pour cela, sur A, utilisez la commande :**<br/>
+cat ~/text.txt<br/>
+Pour le reste du sujet: <br/>
+A -> c133-05.enst.fr<br/>
+B -> c133-06.enst.fr<br/>
+C -> c133-07.enst.fr<br/>
+
 
 ​26​ Trois ordinateurs A B C. On continue sur B et sur C. Utilisation du serveur NFS.
 Connectez-vous à B (physiquement ou à distance) et vérifiez que le fichier text.txt est également présent dans votre répertoire personnel. Pour cela, sur B, utilisez la commande :
