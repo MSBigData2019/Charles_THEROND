@@ -107,9 +107,9 @@ ssh ctherond@c133-07.enst.fr echo "2+3" |bc
 **Question ​20:
 Comment lancer un calcul à distance en utilisant SSH sans taper le mot de passe et en une seule ligne de commande (c’est à dire qu’on appuie sur <Entrée> et on a le résultat directement)?**
 
-Nous devons enregristrer une cle ( rsa par exemple ), copier la clé publique sur la machine puis executer notre commande \s
-ssh-keygen -t rsa -P ""
-ssh-copy-id -i  ~/.ssh/id_rsa.pub ctherond@c133-07.enst.fr
-ssh ctherond@c133-07.enst.fr echo "2+3" |bc
+Nous devons enregristrer une cle ( rsa par exemple ), copier la clé publique sur la machine puis executer notre commande <br/>
+ssh-keygen -t rsa -P "" <br/>
+ssh-copy-id -i  ~/.ssh/id_rsa.pub ctherond@c133-07.enst.fr  <br/>
+ssh ctherond@c133-07.enst.fr echo "2+3" |bc  <br/>
 
 ## Partie 3
