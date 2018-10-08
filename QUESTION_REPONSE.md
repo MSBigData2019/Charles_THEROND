@@ -29,9 +29,8 @@ Quels sont les 5 premiers mots (qui ressemblent à des mots) parmis les 50 premi
 4 a <br/>
 5 et <br/>
 
-*Question 11:
-
-Quels sont les 5 premiers mots (qui ressemblent à des mots) parmis les 50 premiers de la liste triée résultat ?*<br/>
+**Question 11:
+Quels sont les 5 premiers mots (qui ressemblent à des mots) parmis les 50 premiers de la liste triée résultat ?**<br/>
 1 the <br/>
 2 to <br/>
 3 and <br/>
@@ -96,7 +95,7 @@ cat ~/fperso.txt
 
 ​**Question 23:
 Ce fichier est-il sur le disque dur de l’ordinateur ou autre part ? Comment savoir où est stocké physiquement ce fichier, à l’aide de quelle commande ?**<br/>
-Le fichier est sur stoqué dans le cloud  relié à mon compte<br/>
+Le fichier est sur stoqué sur le serveur nfs dans le dossier relié à mon compte<br/>
 realpath fperso.txt -> /cal/homes/ctherond/fperso.txt
 
 
@@ -125,11 +124,12 @@ B -> c133-06.enst.fr<br/>
 C -> c133-07.enst.fr<br/>
 
 
-​26​ Trois ordinateurs A B C. On continue sur B et sur C. Utilisation du serveur NFS.
+**Question ​26:
 Connectez-vous à B (physiquement ou à distance) et vérifiez que le fichier text.txt est également présent dans votre répertoire personnel. Pour cela, sur B, utilisez la commande :
 cat ~/text.txt
 De même, connectez-vous à C et vérifiez que text.txt est aussi présent.
-Remarquez que vous n’avez pas copié le fichier mais qu’il est présent sur A, B et C grâce au serveur NFS.
+Remarquez que vous n’avez pas copié le fichier mais qu’il est présent sur A, B et C grâce au serveur NFS.**<br/>
+![alt text](checkcopiesnfs.png "check dossier")
 
 ​27​ Trois ordinateurs A B C. On commence avec A. Utilisation des disques locaux.
 Déconnectez vous de B et de C et revenez sur l’ordinateur A.
