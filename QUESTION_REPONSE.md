@@ -92,11 +92,24 @@ Testez la communication avec d’autres ordinateurs (pas le vôtre) depuis le r�
 ​**Question 17​:
 Si vous effectuez le ping depuis un réseau différent, il est possible que celui ne fonctionne pas (filtrage des accès vers le réseau de l’école depuis un réseau extérieur), contactez la DSI pour mettre en place une connection VPN / OpenVPN afin d’être sur le même réseau que les machines en salle de TP.**
 
+![alt text](pingexterne.png "ping screen")
+
 **Question ​18:
 Comment lancer un calcul en ligne de commande sur votre ordinateur (par exemple 2 + 3) ? Parmi les multiples réponses possibles, lesquelles permettent de lancer le calcul et d’obtenir le résultat en appuyant une seule fois sur la touche <Entrée> ?**
+
+echo "2+3" | bc
 
 ​**Question 19:
 Comment lancer un calcul  (par exemple 2 + 3) en ligne de commande sur un autre ordinateur (à distance) ? Il faudra certainement vous authentifier avec un mot de passe. Comment obtenir le résultat du calcul immédiatement après avoir tapé son mot de passe ?**
 
+ssh ctherond@c133-07.enst.fr echo "2+3" |bc
+
 **Question ​20:
 Comment lancer un calcul à distance en utilisant SSH sans taper le mot de passe et en une seule ligne de commande (c’est à dire qu’on appuie sur <Entrée> et on a le résultat directement)?**
+
+Nous devons enregristrer une cle ( rsa par exemple ), copier la clé publique sur la machine puis executer notre commande \n
+ssh-keygen -t rsa -P "" \n
+ssh-copy-id -i  ~/.ssh/id_rsa.pub ctherond@c133-07.enst.fr \n
+ssh ctherond@c133-07.enst.fr echo "2+3" |bc \n
+
+## Partie 3
