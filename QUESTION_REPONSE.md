@@ -6,40 +6,64 @@
 Quelle structure de donnée est la plus pertinente pour stocker les résultats: List, HashMap ou HashSet ou une autre ? Pour quelle raison ?*
 
 *Question 7:
+
 Quels sont les 5 premiers mots (qui ressemblent à des mots) parmis les 50 premiers de la liste triée résultat ?*
+
 1 de
+
 2 la
+
 3 police
+
 4 et
+
 5 a
 
 *Question 8:
+
 Quels sont les 5 premiers mots (qui ressemblent à des mots) parmis les 50 premiers de la liste triée résultat ?*
+
 1 de
+
 2 le
+
 3 du
+
 4 la
+
 5 et
 
 *Question 9:
+
 Quels sont les 5 premiers mots (qui ressemblent à des mots) parmis les 50 premiers de la liste triée résultat ?*
+
 1 de
+
 2 la
+
 3 des
+
 4 a
+
 5 et
 
 *Question 11:
+
 Quels sont les 5 premiers mots (qui ressemblent à des mots) parmis les 50 premiers de la liste triée résultat ?*
+
 1 the
+
 2 to
+
 3 and
+
 4 of
+
 5 a
 
 ## Partie 2
 
-*Question 12:
+*Question 12:*
 Quel est le nom COURT de votre ordinateur (le nom simple sans le domaine) ?   quel est le nom LONG de votre ordinateur (le nom avec le domaine) ? Comment les connaître en ligne de commande ? Sur les ordinateurs de l’école, est-il possible d’obtenir ces noms autrement qu’en ligne de commande ?*
 
 
