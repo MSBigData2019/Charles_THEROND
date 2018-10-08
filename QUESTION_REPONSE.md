@@ -91,17 +91,27 @@ Quel est le chemin absolu de votre répertoire personnel, votre home directory ?
 **Question ​22:
 Créez un fichier fperso.txt contenant le texte “bonjour” dans votre répertoire personnel (sur un ordinateur de l’école).
 Vérifiez le contenu du fichier avec cette commande exactement:**
+<br/>nano fperso.txt <br/>
 cat ~/fperso.txt
 
-​23​ Ou se trouve le fichier dans le répertoire personnel
-Ce fichier est-il sur le disque dur de l’ordinateur ou autre part ? Comment savoir où est stocké physiquement ce fichier, à l’aide de quelle commande ?
+​**Question 23:
+Ce fichier est-il sur le disque dur de l’ordinateur ou autre part ? Comment savoir où est stocké physiquement ce fichier, à l’aide de quelle commande ?**<br/>
+Le fichier est sur stoqué dans le cloud  relié à mon compte<br/>
+realpath fperso.txt -> /cal/homes/ctherond/fperso.txt
 
-​24​ Un dossier et un fichier dans le répertoire temporaire
-Créez un dossier /tmp/<votre nom d’utilisateur> en remplaçant <votre nom d’utilisateur>.
-Créez un fichier ftemp.txt dans le répertoire /tmp/<votre nom d’utilisateur> .
-Vérifiez le contenu du fichier avec cette commande exactement:
-cat /tmp/<votre nom d’utilisateur>/ftemp.txt
-Ce dossier et ce fichier sont-ils sur le disque dur de l’ordinateur ou autre part ? Comment savoir où sont stockés physiquement ces éléments, à l’aide de quelle commande ?
+
+**Question ​24:**
+
+Créez un dossier /tmp/<votre nom d’utilisateur> en remplaçant <votre nom d’utilisateur>.<br/>
+mkdir /tmp/ctherond<br/>
+Créez un fichier ftemp.txt dans le répertoire /tmp/<votre nom d’utilisateur> .<br/>
+cd /tmp/ctherond<br/>
+nano ftemp.txt<br/>
+Vérifiez le contenu du fichier avec cette commande exactement:<br/>
+cat /tmp/ctherond/ftemp.txt<br/>
+**Ce dossier et ce fichier sont-ils sur le disque dur de l’ordinateur ou autre part ? Comment savoir où sont stockés physiquement ces éléments, à l’aide de quelle commande ?**
+/cal/homes/ctherond/ftemp.txt
+
 
 ​25​ Trois ordinateurs A B C. On commence avec A. Utilisation du serveur NFS.
 Pour les questions suivantes, utilisez trois ordinateurs: A, B C.
