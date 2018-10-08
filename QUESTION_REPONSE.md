@@ -152,3 +152,14 @@ Comment, à partir de A, transférer le fichier de B (depuis /tmp/<votre nom d�
 scp ctherond@c133-06.enst.fr:/tmp/ctherond/local.txt ctherond@c133-07.enst.fr:/tmp/ctherond
 
 ## Partie 4
+
+**Question ​34​:
+Depuis la machine A contenant /tmp/<votre nom d’utilisateur>/slave.jar
+Créez à distance sur la machine B (s’il n’existe pas) un répertoire /tmp/<votre nom d’utilisateur>/
+Copiez slave.jar sur la machine B dans le répertoire /tmp/<votre nom d’utilisateur>/
+Exécutez à distance (depuis A sur la machine B) le slave.jar.
+Quelle est la commande tapée pour effectuer cette dernière action ?**<br/>
+
+La commande est **ssh ctherond@c133-05.enst.fr java -jar /tmp/ctherond/INF727.jar "/tmp/ctherond/sante_publique.txt" "10" "0"**<br/>
+Les résultats obtenus sont:<br/>
+<img style="text-align: center;" src="checkexecutionjar.png" height="250" >
