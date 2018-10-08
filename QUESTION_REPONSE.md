@@ -21,52 +21,38 @@ Quels sont les 5 premiers mots (qui ressemblent à des mots) parmis les 50 premi
 **Question 8:
 Quels sont les 5 premiers mots (qui ressemblent à des mots) parmis les 50 premiers de la liste triée résultat ?**
 
-1 de
-
-2 le
-
-3 du
-
-4 la
-
-5 et
+1 de <br/>
+2 le <br/>
+3 du <br/>
+4 la <br/>
+5 et <br/>
 
 **Question 9:
 Quels sont les 5 premiers mots (qui ressemblent à des mots) parmis les 50 premiers de la liste triée résultat ?**
 
-1 de
-
-2 la
-
-3 des
-
-4 a
-
-5 et
+1 de <br/>
+2 la <br/>
+3 des <br/>
+4 a <br/>
+5 et <br/>
 
 *Question 11:
 
 Quels sont les 5 premiers mots (qui ressemblent à des mots) parmis les 50 premiers de la liste triée résultat ?*
 
-1 the
-
-2 to
-
-3 and
-
-4 of
-
-5 a
+1 the <br/>
+2 to <br/>
+3 and <br/>
+4 of <br/>
+5 a <br/>
 
 ## Partie 2
 
 **Question 12:
 Quel est le nom COURT de votre ordinateur (le nom simple sans le domaine) ?   quel est le nom LONG de votre ordinateur (le nom avec le domaine) ? Comment les connaître en ligne de commande ? Sur les ordinateurs de l’école, est-il possible d’obtenir ces noms autrement qu’en ligne de commande ?**
 
-Nom court -> hostname -> c133-07
-
-Nom long  -> hostname -d -> enst.fr
-
+Nom court -> hostname -> c133-07 <br/>
+Nom long  -> hostname -d -> enst.fr<br/>
 Oui il est possible d'acceder à ces informations via dans les parametres réseaux de notre session. Il faut néanmoins posseder les droit pour y acceder
 
 **Question ​13​:
