@@ -1,11 +1,15 @@
 package com.company;
 
+import java.io.IOException;
+
 public class Main {
 
     public static void main(String[] args) {
         Mapper wordcount= new Mapper();
         wordcount.wordcount(args[0].toString());
-        wordcount.display(Integer.parseInt(args[1]),Integer.parseInt(args[2]));
+        Integer N=Integer.parseInt(args[1]);
+        Integer sort = Integer.parseInt(args[2]);
+        wordcount.display(N,sort);
         /**
         // Question 1 à 3
         System.out.println("input.txt");
