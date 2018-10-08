@@ -130,6 +130,7 @@ cat ~/text.txt
 De même, connectez-vous à C et vérifiez que text.txt est aussi présent.
 Remarquez que vous n’avez pas copié le fichier mais qu’il est présent sur A, B et C grâce au serveur NFS.**<br/>
 ![alt text](checkcopiesnfs.png "check dossier" =250x250)
+<img src="checkcopiesnfs.png" height="250" width="250">
 
 ​27​ Trois ordinateurs A B C. On commence avec A. Utilisation des disques locaux.
 Déconnectez vous de B et de C et revenez sur l’ordinateur A.
