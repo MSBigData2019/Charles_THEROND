@@ -21,6 +21,7 @@ public class Mapper {
     public void wordcount(String text) {
         mapped = new HashMap<String, Integer>();
         List<String> lines = null;
+
         try {
             System.out.println("-----------------------------");
             long startCharge = System.currentTimeMillis();
@@ -130,4 +131,6 @@ public class Mapper {
     public HashMap<String, Integer> getMapped() {
         return mapped;
     }
+
+
 }

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="sleep:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/sleep_jar</output-path>
+    <root id="archive" name="INF727.jar">
+      <element id="module-output" name="INF727" />
+    </root>
+  </artifact>
+</component>
