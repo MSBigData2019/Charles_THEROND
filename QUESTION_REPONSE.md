@@ -168,5 +168,5 @@ Les résultats obtenus sont:<br/>
 
 **Question 37​
 Modifiez votre programme “MASTER” pour qu’il lance “SLAVE”, c’est à dire slave.jar situé sur la même machine que “MASTER” dans le dossier**<br/>
-<img style="text-align: center;" src="execdistanjar.png" height="250" >
+<img style="text-align: center;" src="execdistantjar.png" height="250" >
 
