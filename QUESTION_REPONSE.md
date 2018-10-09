@@ -163,3 +163,10 @@ Quelle est la commande tapée pour effectuer cette dernière action ?**<br/>
 La commande est **ssh ctherond@c133-05.enst.fr java -jar /tmp/ctherond/INF727.jar "/tmp/ctherond/sante_publique.txt" "10" "0"**<br/>
 Les résultats obtenus sont:<br/>
 <img style="text-align: center;" src="checkexecutionjar.png" height="250" >
+
+## Partie 5
+
+**Question 37​
+Modifiez votre programme “MASTER” pour qu’il lance “SLAVE”, c’est à dire slave.jar situé sur la même machine que “MASTER” dans le dossier**<br/>
+<img style="text-align: center;" src="execdistanjar.png" height="250" >
+

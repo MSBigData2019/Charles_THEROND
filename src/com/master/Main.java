@@ -30,10 +30,21 @@ public class Main {
         command.add(fileName);
         command.add(destination);
         System.out.println(command);
-        ProcessBuilder builder = new ProcessBuilder(command);
         try {
-            builder.start();
-            System.out.println("Commande réussi");
+            ProcessBuilder builder = new ProcessBuilder(command);
+            Process p = builder.start();
+            BufferedReader output = getOutput(p);
+            BufferedReader error = getError(p);
+            String ligne = "";
+
+            while ((ligne = output.readLine()) != null) {
+                System.out.println(ligne);
+            }
+
+            while ((ligne = error.readLine()) != null) {
+                System.out.println(ligne);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,21 +63,34 @@ public class Main {
             command.add(param);
         }
         System.out.println(command);
-        ProcessBuilder builder = new ProcessBuilder(command);
-        try {
 
-            BufferedReader bf = new BufferedReader(new InputStreamReader(builder.start().getInputStream()));
+        try {
+            ProcessBuilder builder = new ProcessBuilder(command);
+            Process p = builder.start();
+            BufferedReader output = getOutput(p);
+            BufferedReader error = getError(p);
             String ligne = "";
 
-            while ((ligne = bf.readLine()) != null) {
+            while ((ligne = output.readLine()) != null) {
                 System.out.println(ligne);
             }
+
+            while ((ligne = error.readLine()) != null) {
+                System.out.println(ligne);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
+    private static BufferedReader getOutput(Process p) {
+        return new BufferedReader(new InputStreamReader(p.getInputStream()));
+    }
 
+    private static BufferedReader getError(Process p) {
+        return new BufferedReader(new InputStreamReader(p.getErrorStream()));
+    }
 
-//   java -jar master.jar "scp" "sante_publique.txt" "ctherond@c133-05.enst.fr:/tmp/ctherond" "scp" "INF727.jar" "ctherond@c133-05.enst.fr:/tmp/ctherond" "start" "/tmp/ctherond/INF727.jar "/tmp/ctherond/sante_publique.txt 10 0 "
+//   java -jar master.jar "scp" "sante_publique.txt" "ctherond@c133-05.enst.fr:/tmp/ctherond" "scp" "INF727.jar" "ctherond@c133-05.enst.fr:/tmp/ctherond" "start" "/tmp/ctherond/INF727.jar" "/tmp/ctherond/sante_publique.txt 10 0 "
 }
