@@ -3,15 +3,17 @@ from bs4 import BeautifulSoup
 import pandas as pd
 
 
-
+# Liste des url à traiter
 Urls=["https://www.reuters.com/finance/stocks/financial-highlights/LVMH.PA",
       "https://www.reuters.com/finance/stocks/financial-highlights/AIR.PA",
       "https://www.reuters.com/finance/stocks/financial-highlights/DANO.PA"]
 
+# Initialisation de rendu
 quarterEndDecembre = pd.DataFrame()
 actionEvolution = pd.DataFrame()
 dividendYield = pd.DataFrame()
 
+# Fonction pour effacer les caracteres genants
 def cleanText(txt):
     return txt.replace("\n","").replace("\t","").replace(" ","")
 
@@ -49,7 +51,7 @@ for url in Urls:
     actionEvolution = actionEvolution.append([RQ2])
 
     #Question 4
-    querry4= soup.find(text="Dividend Yield").parent.parent.select("td.data")
+    querry4= soup.find(text="Dividend Yield").parent.parent.select("td[class='data']")
     RQ4["Company"]=cleanText(querry4[0].text)
     RQ4["Sector"]=cleanText(querry4[1].text)
     RQ4["Indusrty"]=cleanText(querry4[2].text)
