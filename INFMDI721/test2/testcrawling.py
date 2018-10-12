@@ -40,6 +40,7 @@ for url in Urls:
 
         for remise in querry2:
             Remise.append(int(str(remise.text).replace("%","").replace(" ","")))
+    print(url)
     print(Prix)
     print(Remise)
     print()
