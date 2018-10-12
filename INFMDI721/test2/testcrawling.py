@@ -30,12 +30,24 @@ for url in Urls:
     #
     # #Question 1
     querry1 = soup.select("span.darty_prix")
+    querry2 = soup.select("p.darty_prix_barre_remise")
+    Remise=[]
     Prix=[]
     for prix in querry1:
-        Prix.append(str(prix.text).replace(",",".").replace("€","").replace("*","").replace("\\xa",""))
+        try:
+            Prix.append(float(str(prix.text).replace(",",".").replace("€","").replace("*","").replace(' ',"")))
+        except:
+            print(str(prix.text).replace(",",".").replace("€","").replace("*","").replace('\\xa',""))
+
+    for remise in querry2:
+        Remise.append(int(str(remise.text).replace("%","").replace(" ","")))
     print(Prix)
     # print(np.mean(Prix))
-    print(querry1[0].text)
+    # print(querry1[0].text)
+    print(Remise)
+    print("nombre de remises "+str(len(Remise)))
+    print("moyenne des remises "+ str(np.mean(Remise)))
+    print("prix moyen "+str(np.mean(Prix)))
     # print(querry1.span.span)
     # row1 = querry1.parent.parent.findNext('tr').select('td.data')
     # RQ1["# of Estimates"]=row1[0].string
