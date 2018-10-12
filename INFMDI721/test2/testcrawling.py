@@ -6,6 +6,7 @@ import numpy as np
 
 # Liste des url à traiter
 Urls=["https://www.darty.com/nav/recherche?p=200&s=relevence&text=acer&fa=790",
+      "https://www.darty.com/nav/recherche?p=200&s=relevence&text=hp&fa=790",
       "https://www.darty.com/nav/recherche?p=200&s=relevence&text=dell&fa=790"]
 
 
@@ -51,4 +52,4 @@ for url in Urls:
     print("prix moyen "+str(np.mean(Prix)))
     print("prix min "+str(np.min(Prix)))
 
-# Dell gagne
+# Dell gagne puis hp puis acer
