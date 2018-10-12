@@ -8,10 +8,7 @@ import numpy as np
 Urls=["https://www.darty.com/nav/recherche?p=200&s=relevence&text=acer&fa=790",
       "https://www.darty.com/nav/recherche?p=200&s=relevence&text=dell&fa=790"]
 
-# Initialisation de rendu
-quarterEndDecembre = pd.DataFrame()
-actionEvolution = pd.DataFrame()
-dividendYield = pd.DataFrame()
+
 
 # Fonction pour effacer les caracteres genants
 def cleanText(txt):
@@ -42,8 +39,6 @@ for url in Urls:
     for remise in querry2:
         Remise.append(int(str(remise.text).replace("%","").replace(" ","")))
     print(Prix)
-    # print(np.mean(Prix))
-    # print(querry1[0].text)
     print(Remise)
     print()
     print("nombre de remises "+str(len(Remise)))
@@ -52,3 +47,5 @@ for url in Urls:
     print("prix max "+str(np.max(Prix)))
     print("prix moyen "+str(np.mean(Prix)))
     print("prix min "+str(np.min(Prix)))
+
+# Dell gagne
