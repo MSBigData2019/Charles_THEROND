@@ -33,8 +33,8 @@ public class Main {
                 command= new ArrayList<String>();
                 command.add("ssh");
                 command.add(line);
+                command.add("whereis");
                 command.add("java");
-                command.add("-version");
                 ProcessBuilder builder = new ProcessBuilder(command);
                 try {
                     Process p = builder.start();
@@ -54,8 +54,8 @@ public class Main {
             }
 
             for (String line:result.keySet()){
-                //System.out.println(line);
-                //System.out.println(result.get(line));
+                System.out.println(line);
+                System.out.println(result.get(line));
                 if(result.get(line).toArray()==null){
                     Process px=processs.get(line);
                     px.destroy();
@@ -80,19 +80,22 @@ public class Main {
         Integer maxIteration= 0;
         while (condition){
 
+            Integer mahcineDone=0;
+            for (String Sindex:stage.keySet()){
+                ArrayList<String> command= getCommand(Sindex,stage.get(Sindex));
+                System.out.println(command);
+                if(stage.get(Sindex).equals("stepX")){
+                    mahcineDone++;
+                }
+            }
 
             // Condition d'arret
-            if (maxIteration>=1000){
+            if (maxIteration>=3){
                 System.out.println("Trop de tentative");
                 condition= Boolean.FALSE;
             }
             maxIteration++;
-            Integer mahcineDone=0;
-            for (String Sindex:stage.keySet()){
-                if(stage.get(Sindex).equals("step1")){
-                    mahcineDone++;
-                }
-            }
+
             if(mahcineDone>=stage.keySet().size()){
                 System.out.println("Tous les machines ont finis leur stages");
                 condition=Boolean.FALSE;
@@ -101,6 +104,13 @@ public class Main {
         System.out.println(stage);
         System.out.println("Fin du proccess");
 
+    }
+    public static ArrayList<String> getCommand(String machine, String step){
+        ArrayList<String> command= new ArrayList<String>();
+        command.add("ssh");
+        command.add(machine);
+        command.add(step);
+        return command;
     }
 
 
