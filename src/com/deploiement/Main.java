@@ -13,10 +13,12 @@ import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
 
+import static jdk.nashorn.internal.objects.ArrayBufferView.length;
+
 
 public class Main {
 
-
+    public static HashMap<String,String> stage = new HashMap<>();
 
     public static void main(String[] args){
         try {
@@ -25,7 +27,7 @@ public class Main {
             List<String> lines = null;
             HashMap<String,Process> processs=new HashMap<>();
             HashMap<String,ArrayList<String>> result=new HashMap<>();
-            lines = Files.readAllLines(Paths.get("config.txt"), Charset.forName("UTF-8"));
+            lines = Files.readAllLines(Paths.get("configAll/config.txt"), Charset.forName("UTF-8"));
             for (String line : lines) {
                 System.out.println("Test la connexion à "+line);
                 command= new ArrayList<String>();
@@ -63,6 +65,9 @@ public class Main {
                 }
                 if (!result.get(line).toArray()[0].equals("Host key verification failed.")){
                     System.out.println("Copie des fichiers autorisée sur "+line);
+                    stage.put(line,"step1");
+                }else{
+                    System.out.println("Echec de connexion");
                 }
             }
         } catch (IOException e) {
@@ -70,7 +75,34 @@ public class Main {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        Boolean condition= Boolean.TRUE;
+        Integer maxIteration= 0;
+        while (condition){
+
+
+            // Condition d'arret
+            if (maxIteration>=1000){
+                System.out.println("Trop de tentative");
+                condition= Boolean.FALSE;
+            }
+            maxIteration++;
+            Integer mahcineDone=0;
+            for (String Sindex:stage.keySet()){
+                if(stage.get(Sindex).equals("step1")){
+                    mahcineDone++;
+                }
+            }
+            if(mahcineDone>=stage.keySet().size()){
+                System.out.println("Tous les machines ont finis leur stages");
+                condition=Boolean.FALSE;
+            }
+        }
+        System.out.println(stage);
+        System.out.println("Fin du proccess");
+
     }
+
 
 
 }
