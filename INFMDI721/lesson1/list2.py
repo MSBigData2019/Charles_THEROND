@@ -55,6 +55,7 @@ def main():
     test(remove_adjacent([1, 2, 2, 3]), [1, 2, 3])
     test(remove_adjacent([2, 2, 3, 3, 3]), [2, 3])
     test(remove_adjacent([]), [])
+    print(round(34/100)+1)
 
     print()
     print ('linear_merge')
