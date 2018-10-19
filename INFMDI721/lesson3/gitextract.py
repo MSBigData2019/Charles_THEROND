@@ -9,7 +9,7 @@ Urls="https://gist.github.com/paulmillr/2657075"
 
 # Initialisation de rendu
 profil_df = pd.DataFrame()
-myhead = {'Authorization': 'token {}'.format('')}
+myhead = {'Authorization': 'token {}'.format('2a3331aab3decffbeaa4c0d7942ea72140626aa8')}
 
 # Fonction pour effacer les caracteres genants
 def cleanText(txt):
@@ -46,6 +46,7 @@ def get_star(nom,page,out_sum):
     user_repo = json.loads(response.content)
     for item in user_repo:
         sum += int(item['stargazers_count'])
+    print(str(nom)+" "+str(sum))
     out_sum.append(sum)
 
 
