@@ -22,14 +22,16 @@ for ligne in querry1:
     ville_tab.append(str(str(ligne.find_next("td").find_next("td").a.string).replace("(La","").split(" ")[:-1]).replace("['","").replace("', '","").replace("']",""))
 
 matrice = pd.DataFrame(columns=ville_tab,index=ville_tab)
-matrice.loc["Paris","Paris"]=12
-print(matrice.loc["Paris","Paris"])
 for ind in matrice.index:
     for col in matrice.columns:
         if ind!=col:
             get_distance = requests.get("https://www.distance24.org/route.json?stops="+ str(ind)+"|"+str(col))
-            #print(json.loads(get_distance.content)["distance"])
+            print(str(ind)+"|"+str(col))
+            print(json.loads(get_distance.content)["distance"])
             matrice.loc[ind,col]=json.loads(get_distance.content)["distance"]
+            matrice.loc[col,ind]=json.loads(get_distance.content)["distance"]
+        else:
+            break
 #https://www.distance24.org/route.json?stops=Paris|Lyon
 
 print(matrice)
