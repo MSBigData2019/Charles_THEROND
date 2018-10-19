@@ -22,6 +22,7 @@ for ligne in querry1:
     ville_tab.append(str(str(ligne.find_next("td").find_next("td").a.string).replace("(La","").split(" ")[:-1]).replace("['","").replace("', '","").replace("']",""))
 
 matrice = pd.DataFrame(columns=ville_tab,index=ville_tab)
+print(matrice.index)
 for ind in matrice.index:
     for col in matrice.columns:
         if ind!=col:
