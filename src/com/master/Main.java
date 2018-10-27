@@ -3,9 +3,7 @@ package com.master;
 import org.omg.SendingContext.RunTime;
 import sun.security.x509.AttributeNameEnumeration;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingDeque;
@@ -46,6 +44,19 @@ public class Main {
                 execJar(args[i+1],args[i+2]);
 
             }//*/
+        }
+        Writer writer = null;
+
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream("filename.txt"), "utf-8"));
+            writer.write("Something");
+            writer.write("good");
+
+        } catch (IOException ex) {
+            // Report
+        } finally {
+            try {writer.close();} catch (Exception ex) {/*ignore*/}
         }
 
         command= new ArrayList<String>();

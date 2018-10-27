@@ -17,6 +17,7 @@ public class TestSSH extends Thread{
     @Override
     public void run() {
         try {
+            this.sleep(1000);
             BufferedReader output = getOutput(process);
             BufferedReader error = getError(process);
             String ligne = "";
