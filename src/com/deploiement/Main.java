@@ -149,17 +149,13 @@ public class Main {
             BlockingDeque<HashMap<String,ArrayList<String>>> queue = new LinkedBlockingDeque<>();
             HashMap<String,Process> processs=new HashMap<>();
             HashMap<String,ArrayList<String>> result=new HashMap<>();
-            ArrayList<String> argss= new ArrayList<String>();
-            argss.add("0");
-            argss.add("1");
-            argss.add("2");
+
 
             while (condition){
 
                 Integer machineDone=0;
                 for (String Sindex:stage.keySet()) {
-                    ArrayList<String> command = getCommand(Sindex, stage.get(Sindex),argss);
-                    System.out.println(command);
+                    ArrayList<String> command = getCommand(Sindex, stage.get(Sindex),null);
                     if (stage.get(Sindex).equals("stepX")) {
                         machineDone++;
                     }
@@ -209,7 +205,9 @@ public class Main {
         }catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Fin du proccess");
+        System.out.println("Fin deploiement");
+        System.out.println("----------------------------");
+
 
     }
     public static ArrayList<String> getCommand(String machine, String step,ArrayList<String> arguments){
@@ -275,7 +273,6 @@ public class Main {
         if (step.equals("step5")){
 
             System.out.println("Run map sur"+ machine);
-            // ssh ctherond@c133-05.enst.fr java -jar /tmp/ctherond/INF727.jar "/tmp/ctherond/sante_publique.txt" "10" "0"
             command.add("java");
             command.add("-jar");
             command.add("/tmp/ctherond/JAR/map.jar");
@@ -320,7 +317,7 @@ public class Main {
         }
         if(step.equals("step4")){
 
-            newStep="step5";
+            newStep="stepX";
             System.out.println(line);
             System.out.println(step);
             System.out.println(result.get(line));
