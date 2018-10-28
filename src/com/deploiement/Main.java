@@ -1,6 +1,8 @@
 package com.deploiement;
 
 import com.master.CopyThread;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
+import sun.awt.AWTIcon32_security_icon_yellow16_png;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -20,6 +22,7 @@ public class Main {
 
     public static HashMap<String,String> stage = new HashMap<>();
     public static HashMap<String,String> referenceFichier = new HashMap<>();
+    public static HashMap<String,ArrayList<String>> cleMachine=new HashMap<>();
 
 
     public static void main(String[] args){
@@ -176,7 +179,6 @@ public class Main {
                 for(String Sindex:stage.keySet()){
                     HashMap<String,ArrayList<String>> r=queue.poll(3,TimeUnit.SECONDS);
                     result.put(r.keySet().toArray()[0].toString(),r.get(r.keySet().toArray()[0]));
-
                 }
 
 
@@ -202,14 +204,110 @@ public class Main {
                     condition=Boolean.FALSE;
                 }
             }
+            System.out.println("Fin deploiement");
+            System.out.println("----------------------------");
+
+//          Mapping
+            Integer nbMachine =stage.size();
+            File folder = new File("Ressource/split");
+            File[] listOfFiles = folder.listFiles();
+            for (int i = 0; i < listOfFiles.length; i++) {
+                if (listOfFiles[i].isFile()) {
+//                    System.out.println( listOfFiles[i].getName()+" "+ stage.keySet().toArray()[i%nbMachine]);
+                    String Sindex = (String) stage.keySet().toArray()[i%nbMachine];
+                    ArrayList<String> argss=new ArrayList<>();
+                    argss.add("O");
+                    argss.add(listOfFiles[i].getName());
+
+                    ArrayList<String> command = getCommand(Sindex, "step5",argss);
+
+
+                    ProcessBuilder builder = new ProcessBuilder(command);
+                    try {
+                        Process p = builder.start();
+
+                        Thread mythread = new TestSSH(p, queue, Sindex);
+                        mythread.start();
+                        processs.put(Sindex, p);
+
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            }
+            for(int i = 0; i < listOfFiles.length; i++){
+                HashMap<String,ArrayList<String>> r=queue.poll(6,TimeUnit.SECONDS);
+                String cles =r.get(r.keySet().toArray()[0]).toArray()[1].toString().replace("[","").replace(" ","").replace("]","");
+
+
+
+//                ArrayList<String> cles =r.get(r.keySet().toArray()[0]).toArray()[1].toString().replaceAll("[","").replaceAll(" ","").replaceAll("]","");
+                for (String cle:cles.split(","))
+                {
+                    ArrayList<String> values = cleMachine.get(cle);
+                    if(values==null){
+                        values = new ArrayList<>();
+                        values.add(r.get(r.keySet().toArray()[0]).toArray()[0]+"-"+(String)stage.keySet().toArray()[i%nbMachine]);
+                        cleMachine.put(cle ,values);
+
+                    }
+                    else{
+                    values.add(r.get(r.keySet().toArray()[0]).toArray()[0]+"-"+(String)stage.keySet().toArray()[i%nbMachine]);
+                    cleMachine.put(cle , values);
+                }
+
+
+                }
+
+
+            }
+
+            for (String line:cleMachine.keySet())
+            {
+                System.out.println(line);
+                System.out.println(cleMachine.get(line));
+
+            }
+            System.out.println("Fin Mapping");
+            System.out.println("----------------------------");
+            //Phase copie shuffling
+
+            Integer j=0;
+            for (String line:cleMachine.keySet())
+            {
+                System.out.println(line+" "+stage.keySet().toArray()[j%nbMachine]);
+                System.out.println(cleMachine.get(line));
+                orderCopy(cleMachine.get(line),(String) stage.keySet().toArray()[j%nbMachine]);
+                j++;
+
+            }
+
+
         }catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Fin deploiement");
-        System.out.println("----------------------------");
+
+
+
+
 
 
     }
+    public static void orderCopy(ArrayList<String> sources,String destination){
+        for(String source:sources){
+            String[] filsou=source.split("-");
+            System.out.println(filsou[0]);
+
+
+        }
+
+
+
+    }
+
     public static ArrayList<String> getCommand(String machine, String step,ArrayList<String> arguments){
         ArrayList<String> command= new ArrayList<String>();
         command.add("ssh");
@@ -285,6 +383,7 @@ public class Main {
 
             command.add("ls");
         }
+        System.out.println(command);
 
         return command;
     }
