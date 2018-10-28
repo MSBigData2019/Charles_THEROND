@@ -63,12 +63,8 @@ public class Main {
         command.add("ssh");
         command.add("ctherond@c133-05.enst.fr");
         command.add("java");
-        command.add("-jar");
-        command.add("/tmp/ctherond/INF727.jar");
-        String[] params= "/tmp/ctherond/sante_publique.txt 10 0 ".split(" ");
-        for (String param : params){
-            command.add(param);
-        }
+        command.add("-version");
+
         ProcessBuilder builder = new ProcessBuilder(command);
         try {
             Process p = builder.start();
