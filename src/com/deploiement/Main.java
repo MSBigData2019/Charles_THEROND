@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.SplittableRandom;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
@@ -23,6 +24,7 @@ public class Main {
     public static HashMap<String,String> stage = new HashMap<>();
     public static HashMap<String,String> referenceFichier = new HashMap<>();
     public static HashMap<String,ArrayList<String>> cleMachine=new HashMap<>();
+    private static HashMap<String, ArrayList<String>> machineRN;
 
 
     public static void main(String[] args){
@@ -54,7 +56,7 @@ public class Main {
                 }
             }
             for(String line:lines){
-                HashMap<String,ArrayList<String>> r=queue.poll(1,TimeUnit.SECONDS);
+                HashMap<String,ArrayList<String>> r=queue.poll(5,TimeUnit.SECONDS);
                 result.put(r.keySet().toArray()[0].toString(),r.get(r.keySet().toArray()[0]));
 
             }
@@ -216,7 +218,7 @@ public class Main {
 //                    System.out.println( listOfFiles[i].getName()+" "+ stage.keySet().toArray()[i%nbMachine]);
                     String Sindex = (String) stage.keySet().toArray()[i%nbMachine];
                     ArrayList<String> argss=new ArrayList<>();
-                    argss.add("O");
+                    argss.add("0");
                     argss.add(listOfFiles[i].getName());
 
                     ArrayList<String> command = getCommand(Sindex, "step5",argss);
@@ -240,6 +242,7 @@ public class Main {
             }
             for(int i = 0; i < listOfFiles.length; i++){
                 HashMap<String,ArrayList<String>> r=queue.poll(6,TimeUnit.SECONDS);
+                System.out.println(r);
                 String cles =r.get(r.keySet().toArray()[0]).toArray()[1].toString().replace("[","").replace(" ","").replace("]","");
 
 
@@ -250,14 +253,14 @@ public class Main {
                     ArrayList<String> values = cleMachine.get(cle);
                     if(values==null){
                         values = new ArrayList<>();
-                        values.add(r.get(r.keySet().toArray()[0]).toArray()[0]+"-"+(String)stage.keySet().toArray()[i%nbMachine]);
+                        values.add(r.get(r.keySet().toArray()[0]).toArray()[0]+"_"+(String)stage.keySet().toArray()[i%nbMachine]);
                         cleMachine.put(cle ,values);
 
                     }
                     else{
-                    values.add(r.get(r.keySet().toArray()[0]).toArray()[0]+"-"+(String)stage.keySet().toArray()[i%nbMachine]);
-                    cleMachine.put(cle , values);
-                }
+                        values.add(r.get(r.keySet().toArray()[0]).toArray()[0]+"_"+(String)stage.keySet().toArray()[i%nbMachine]);
+                        cleMachine.put(cle , values);
+                    }
 
 
                 }
@@ -280,10 +283,68 @@ public class Main {
             {
                 System.out.println(line+" "+stage.keySet().toArray()[j%nbMachine]);
                 System.out.println(cleMachine.get(line));
-                orderCopy(cleMachine.get(line),(String) stage.keySet().toArray()[j%nbMachine]);
+                shuffle(cleMachine.get(line),(String) stage.keySet().toArray()[j%nbMachine],line,j);
                 j++;
 
             }
+            System.out.println("Fin Shuffle");
+            System.out.println("----------------------------");
+            j=0;
+
+            queue = new LinkedBlockingDeque<>();
+            processs=new HashMap<>();
+            result=new HashMap<>();
+            for (String line:cleMachine.keySet())
+            {
+
+
+
+                ArrayList<String> argss=new ArrayList<>();
+                argss.add("2");
+                argss.add(line);
+                argss.add("/tmp/ctherond/mapResult/SM"+j+".txt");
+                argss.add("RM"+j+".txt");
+
+                ArrayList<String> command=getCommand((String) stage.keySet().toArray()[j%nbMachine],"step5",argss);
+
+                ProcessBuilder builder = new ProcessBuilder(command);
+                try {
+                    Process p = builder.start();
+
+                    Thread mythread = new TestSSH(p, queue, (String) stage.keySet().toArray()[j%nbMachine]);
+                    mythread.start();
+                    processs.put((String) stage.keySet().toArray()[j%nbMachine], p);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                j++;
+
+            }
+            j=0;
+            machineRN=new HashMap<>();
+            System.out.println();
+            System.out.println();
+            System.out.println("--------------------------");
+            System.out.println("FIN MAP REDUCE");
+            for(String line:cleMachine.keySet()){
+                HashMap<String,ArrayList<String>> r=queue.poll(6,TimeUnit.SECONDS);
+
+
+                ArrayList<String> values = machineRN.get((String)stage.keySet().toArray()[j%nbMachine]);
+                System.out.println(r.get(r.keySet().toArray()[0]).toArray()[0].toString());
+                if(values==null){
+                    values = new ArrayList<>();
+                    values.add(r.get(r.keySet().toArray()[0]).toArray()[1].toString());
+                    machineRN.put((String)stage.keySet().toArray()[j%nbMachine] ,values);
+
+                }
+                else{
+                    values.add(r.get(r.keySet().toArray()[0]).toArray()[1].toString());
+                    machineRN.put((String)stage.keySet().toArray()[j%nbMachine] , values);
+                }
+                j++;
+            }
+            System.out.println(machineRN);
 
 
         }catch (InterruptedException e) {
@@ -296,17 +357,79 @@ public class Main {
 
 
     }
-    public static void orderCopy(ArrayList<String> sources,String destination){
+    public static void shuffle(ArrayList<String> sources,String destination,String word,Integer J) throws InterruptedException {
+
+        BlockingDeque<HashMap<String,ArrayList<String>>> queue = new LinkedBlockingDeque<>();
+        HashMap<String,Process> processs=new HashMap<>();
+        HashMap<String,ArrayList<String>> result=new HashMap<>();
+
+        System.out.println(word);
         for(String source:sources){
-            String[] filsou=source.split("-");
-            System.out.println(filsou[0]);
+            String[] filsou=source.split("_");
+
+            if(!destination.equals(filsou[1])) {
+                ArrayList<String> command = new ArrayList<>();
+                command.add("scp");
+                command.add(filsou[1] + ":/tmp/ctherond/mapResult/" + filsou[0]);
+                command.add(destination + ":/tmp/ctherond/mapResult");
+                System.out.println(command);
+                ProcessBuilder builder = new ProcessBuilder(command);
+                try {
+                    Process p = builder.start();
+
+                    Thread mythread = new TestSSH(p, queue, filsou[0]);
+                    mythread.start();
+                    processs.put(filsou[0], p);
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+
+        }
+        for(String source:sources){
+
+            String[] filsou=source.split("_");
+            if(!destination.equals(filsou[1])) {
+                HashMap<String,ArrayList<String>> r=queue.poll(6,TimeUnit.SECONDS);
+            }
 
 
         }
 
+        ArrayList<String> argss=new ArrayList<>();
+        argss.add("1");
+        argss.add(word);
+        argss.add("/tmp/ctherond/mapResult/SM"+J+".txt");
+        for(String source:sources) {
+            String[] filsou = source.split("_");
+            argss.add("/tmp/ctherond/mapResult/"+filsou[0]);
+        }
+        ArrayList<String> command=getCommand(destination,"step5",argss);
+
+        ProcessBuilder builder = new ProcessBuilder(command);
+        try {
+            Process p = builder.start();
+
+            Thread mythread = new TestSSH(p, queue, destination);
+            mythread.start();
+            processs.put(destination, p);
+            HashMap<String,ArrayList<String>> r=queue.poll(3,TimeUnit.SECONDS);
+            System.out.println(r);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
 
 
     }
+
 
     public static ArrayList<String> getCommand(String machine, String step,ArrayList<String> arguments){
         ArrayList<String> command= new ArrayList<String>();
@@ -320,6 +443,7 @@ public class Main {
             command.add("/tmp/ctherond/split");
             command.add("/tmp/ctherond/JAR");
             command.add("/tmp/ctherond/mapResult");
+            command.add("/tmp/ctherond/reduce");
         }
         // Step2 give right
         if (step.equals("step2")){
