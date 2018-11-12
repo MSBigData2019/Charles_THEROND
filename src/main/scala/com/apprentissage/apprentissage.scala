@@ -27,24 +27,25 @@ object apprentissage {
       .appName("apprentissage")
       .config(spconf)
       .getOrCreate()
+    // Gestion des affichages
     val sc = Sparksession.sparkContext
     sc.setLogLevel("ERROR")
 
 
-    // Question 1
+    // Question 1 - Lecture des données
     println("QUESTION 1")
     val df = Sparksession.read.parquet("prepared_trainingset")
 
     // Question 2
     println("QUESTION 2")
 
-    //a
+    //a - Separation du texte en mots ( tokenisation )
     val tokenizer = new RegexTokenizer()
       .setPattern("\\W+")
       .setGaps(true)
       .setInputCol("text")
       .setOutputCol("tokens")
-    //b
+    //b - Supression des mots sans valeur présent dans le text
     val remover = new StopWordsRemover()
       .setInputCol("tokens")
       .setOutputCol("filtered")
@@ -62,7 +63,7 @@ object apprentissage {
     val df2 = model.transform(df)
     println(df2.show())
 
-    // Question 3
+    // Question 3 - Conversion des données catégorielles en données numérique pour modelisation
     println("QUESTION 3")
 
     //e
@@ -92,12 +93,12 @@ object apprentissage {
     // Question 4
 
     println("QUESTION 4")
-    //h
+    //h - Selection des features pour calculer notre modèle
     val assembler = new VectorAssembler()
       .setInputCols(Array("tfidf", "days_campaign", "hours_prepa", "goal", "country_vec", "currency_vec"))
       .setOutputCol("features")
 
-    //i
+    //i - Parametrage du modèle
     val lr = new LogisticRegression()
       .setElasticNetParam(0.0)
       .setFitIntercept(true)
@@ -110,7 +111,7 @@ object apprentissage {
       .setTol(1.0e-6)
       .setMaxIter(300)
 
-    //j
+    //j - Creation du pipeline combinant les précedentes étapes
     val pipelineAll = new Pipeline()
       .setStages(Array(tokenizer, remover,cv,idf,countryIndexer, currencyIndexer,encoder,assembler,lr))
 
@@ -118,24 +119,26 @@ object apprentissage {
     val dfALL = modelAll.transform(df)
     println(dfALL.show())
 
-    // Question 5`
+    // Question 5
     println("QUESTION 5")
 
     // k
     val Array(training, test) = df.randomSplit(Array(0.9, 0.1), seed = 12345)
 
     //l
+    // Choix de la metric pour selectionné les hyper parametre
     val f1 = new MulticlassClassificationEvaluator()
       .setMetricName("f1")
       .setLabelCol("final_status")
       .setPredictionCol("predictions")
 
-
+    // Choix des hyper-parametre à tester
     val paramGrid = new ParamGridBuilder()
       .addGrid(lr.regParam, Array(10e-8, 10e-6, 10e-4,10e-2))
       .addGrid(cv.minDF,Array(55.0,75.0,95.0))
       .build()
 
+    // Mise en place du modèle
     val trainValidationSplit = new TrainValidationSplit()
       .setEstimator(pipelineAll)
       .setEvaluator(f1)
@@ -146,6 +149,10 @@ object apprentissage {
 
     //m
     val df_WithPredictions =modelLR.transform(test)
+
+    // Evaluation du modèle sur le jeu de test
+    val F1 = f1.evaluate(df_WithPredictions)
+    println(s"F1 score = $F1")
     //n
     df_WithPredictions.groupBy("final_status", "predictions").count.show()
 
