@@ -49,11 +49,11 @@ object apprentissage {
     val remover = new StopWordsRemover()
       .setInputCol("tokens")
       .setOutputCol("filtered")
-    //c
+    //c - Representation du décompte des tokens sous forme de vecteur
     val cv = new CountVectorizer()
       .setInputCol("filtered")
       .setOutputCol("rawFeatures")
-    //d
+    //d - TF-IDF
     val idf = new IDF().setInputCol("rawFeatures").setOutputCol("tfidf")
 
     val pipeline = new Pipeline()
